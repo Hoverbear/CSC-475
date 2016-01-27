@@ -1,0 +1,8 @@
+[package]
+name = "q2c-lib"
+version = "0.1.0"
+authors = ["Andrew Hobden <andrew@hoverbear.org>"]
+
+[dependencies]
+num = "*"
+rustfft = "*"
