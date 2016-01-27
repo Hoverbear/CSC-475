@@ -1,0 +1,6 @@
+[package]
+name = "q2c"
+version = "0.1.0"
+authors = ["Andrew Hobden <andrew@hoverbear.org>"]
+
+[dependencies]
