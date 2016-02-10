@@ -28,6 +28,6 @@ Series {
         }
     }
     -> summer: Sum
-    -> sink: CsvSink { filename = "q1c.csv" }
+    -> sink: CsvSink { filename = "q1.3.csv" }
     + done = (input/hasData == false)
 }

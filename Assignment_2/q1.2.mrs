@@ -14,7 +14,7 @@ Series {
     // Get rid of the val, only care about index
     -> Transposer
     -> selection: Selector { disable = 0 }
-    
-    -> sink: CsvSink { filename = "q1b.csv" }
+
+    -> sink: CsvSink { filename = "q12.csv" }
     + done = (input/hasData == false)
 }
