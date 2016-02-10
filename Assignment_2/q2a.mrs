@@ -1,0 +1,21 @@
+Series {
+    inSamples = 512
+    onSamples = 512
+    -> SoundFileSource { filename = "qbh_examples.wav" onSamples = 256 inSamples = 256 }
+    -> MixToMono
+    -> ShiftInput { winSize = 512 }
+    -> Fanout {
+        -> Series {
+            -> input: SoundFileSourceHopper { filename="qbh_examples.wav" windowSize = 512 hopSize = 256 }
+            -> Spectrum
+            -> PowerSpectrum
+            -> Centroid
+            -> centroid: FlowToControl
+        }
+        -> Series {
+            -> SineSource { frequency = centroid/value }
+        }
+    }
+    -> AudioSink
+    + done = (input/hasData == false)
+}

@@ -1,0 +1,17 @@
+Series {
+    inSamples = 1024
+    -> input: SoundFileSource { filename = "qbh_examples.wav" }
+    -> Windowing { size = 1024 }
+
+    -> Spectrum
+    -> PowerSpectrum { spectrumType = "magnitude" }
+    // It's 513x1 right now and useless.
+    -> Transposer
+    -> max: MaxArgMax
+    // Get rid of the val, only care about index
+    -> Transposer
+    -> selection: Selector { disable = 0 }
+    
+    -> sink: CsvSink { filename = "q1a.csv" }
+    + done = (input/hasData == false)
+}
