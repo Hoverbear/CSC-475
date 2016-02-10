@@ -1,0 +1,33 @@
+Series {
+    inSamples = 1024
+    -> input: SoundFileSource { filename = "qbh_examples.wav" }
+    -> Windowing { size = 1024 }
+    -> Fanout {
+        // Q1a
+        -> Series {
+            -> Spectrum
+            -> PowerSpectrum { spectrumType = "magnitude" }
+            // It's 513x1 right now and useless.
+            -> Transposer
+            -> max: MaxArgMax
+            // Get rid of the val, only care about index
+            -> Transposer
+            -> selection_1: Selector { disable = 0 }
+        }
+        -> Series {
+            //-> Spectrum
+            //-> PowerSpectrum { spectrumType = "magnitude" }
+            // It's 513x1 right now and useless.
+            //-> Transposer
+            -> AutoCorrelation
+            -> Peaker
+            -> MaxArgMax
+            // Get rid of the val, only care about index
+            -> Transposer
+            -> selection_2: Selector { disable = 0 }
+        }
+    }
+    -> summer: Sum
+    -> sink: CsvSink { filename = "q1c.csv" }
+    + done = (input/hasData == false)
+}
